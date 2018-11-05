@@ -18,7 +18,6 @@ function draw() {
     const smallY = -Math.cos(t) * bigRadius + y;
 
     points.columns.push({ x, y });
-
     shapes.circle(x, y, bigRadius);
     shapes.circle(smallX, smallY, smallRadius, { fill: true });
     shapes.line('x', smallX);
@@ -33,7 +32,6 @@ function draw() {
     const smallY = -Math.cos(t) * bigRadius + y;
 
     points.rows.push({ x, y });
-
     shapes.circle(x, y, bigRadius);
     shapes.circle(smallX, smallY, smallRadius, { fill: true });
     shapes.line('y', smallY);
@@ -83,10 +81,10 @@ const shapes = Shapes(ctx);
 const startTime = Date.now();
 const count = 6;
 const trails = Array.from({ length: Math.pow(count, 2) }, () => new Trail());
+const ratio = window.devicePixelRatio || 1;
 let time = 0;
-let windowWidth = window.innerWidth;
-let windowHeight = window.innerHeight;
-let ratio = window.devicePixelRatio || 1;
+let windowWidth = 0;
+let windowHeight = 0;
 
 // Events
 window.addEventListener('resize', resizeHandler);
