@@ -5,14 +5,18 @@ function draw() {
 
   // Begin draw
   const bigRadius = 50;
-  const smallRadius = 3;
+  const smallRadius = 2;
   const count = 6;
   const startIndex = 1;
+  const points = { columns: [], rows: [] };
 
+  // Draw the columns
   for (let i = startIndex; i < count + startIndex; i++) {
     const x = bigRadius * i * 2 + bigRadius;
     const y = bigRadius;
     const t = time * i;
+
+    points.columns.push({ x, y });
 
     shapes.circle(x, y, bigRadius);
     shapes.circle(
@@ -24,10 +28,13 @@ function draw() {
     shapes.line('x', Math.sin(t) * bigRadius + x);
   }
 
+  // Draw the rows
   for (let i = startIndex; i < count + startIndex; i++) {
     const x = bigRadius;
     const y = bigRadius * i * 2 + bigRadius;
     const t = time * i;
+
+    points.rows.push({ x, y });
 
     shapes.circle(x, y, bigRadius);
     shapes.circle(
@@ -38,6 +45,19 @@ function draw() {
     );
     shapes.line('y', -Math.cos(t) * bigRadius + y);
   }
+
+  // Draw the grid
+  points.rows.forEach((row, y) => {
+    const ty = time * (y + startIndex);
+
+    points.columns.forEach((col, x) => {
+      const tx = time * (x + startIndex);
+      const pointX = Math.sin(tx) * bigRadius + col.x;
+      const pointY = -Math.cos(ty) * bigRadius + row.y;
+
+      shapes.circle(pointX, pointY, smallRadius, { fill: true });
+    });
+  });
   // End draw
 
   ctx.restore();
@@ -74,6 +94,5 @@ let ratio = window.devicePixelRatio || 1;
 window.addEventListener('resize', resizeHandler);
 
 // Body
-draw();
-requestAnimationFrame(update);
+update();
 resizeHandler();
