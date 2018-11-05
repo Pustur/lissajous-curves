@@ -6,7 +6,6 @@ function draw() {
   // Begin draw
   const bigRadius = 50;
   const smallRadius = 2;
-  const count = 6;
   const startIndex = 1;
   const points = { columns: [], rows: [] };
 
@@ -48,8 +47,11 @@ function draw() {
       const tx = time * (x + startIndex);
       const pointX = Math.sin(tx) * bigRadius + col.x;
       const pointY = -Math.cos(ty) * bigRadius + row.y;
+      const trail = trails[y * points.rows.length + x];
 
       shapes.circle(pointX, pointY, smallRadius, { fill: true });
+      trail.push({ x: pointX, y: pointY });
+      trail.draw(ctx);
     });
   });
   // End draw
@@ -79,6 +81,8 @@ const canvas = document.querySelector('canvas');
 const ctx = canvas.getContext('2d');
 const shapes = Shapes(ctx);
 const startTime = Date.now();
+const count = 6;
+const trails = Array.from({ length: Math.pow(count, 2) }, () => new Trail());
 let time = 0;
 let windowWidth = window.innerWidth;
 let windowHeight = window.innerHeight;
