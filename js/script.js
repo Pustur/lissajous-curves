@@ -15,17 +15,14 @@ function draw() {
     const x = bigRadius * i * 2 + bigRadius;
     const y = bigRadius;
     const t = time * i;
+    const smallX = Math.sin(t) * bigRadius + x;
+    const smallY = -Math.cos(t) * bigRadius + y;
 
     points.columns.push({ x, y });
 
     shapes.circle(x, y, bigRadius);
-    shapes.circle(
-      Math.sin(t) * bigRadius + x,
-      -Math.cos(t) * bigRadius + y,
-      smallRadius,
-      { fill: true },
-    );
-    shapes.line('x', Math.sin(t) * bigRadius + x);
+    shapes.circle(smallX, smallY, smallRadius, { fill: true });
+    shapes.line('x', smallX);
   }
 
   // Draw the rows
@@ -33,17 +30,14 @@ function draw() {
     const x = bigRadius;
     const y = bigRadius * i * 2 + bigRadius;
     const t = time * i;
+    const smallX = Math.sin(t) * bigRadius + x;
+    const smallY = -Math.cos(t) * bigRadius + y;
 
     points.rows.push({ x, y });
 
     shapes.circle(x, y, bigRadius);
-    shapes.circle(
-      Math.sin(t) * bigRadius + x,
-      -Math.cos(t) * bigRadius + y,
-      smallRadius,
-      { fill: true },
-    );
-    shapes.line('y', -Math.cos(t) * bigRadius + y);
+    shapes.circle(smallX, smallY, smallRadius, { fill: true });
+    shapes.line('y', smallY);
   }
 
   // Draw the grid
