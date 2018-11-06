@@ -4,6 +4,7 @@ function draw() {
   ctx.scale(ratio, ratio);
 
   // Begin draw
+  const gap = 10;
   const bigRadius = 50;
   const smallRadius = 2;
   const startIndex = 1;
@@ -11,7 +12,7 @@ function draw() {
 
   // Draw the columns
   for (let i = startIndex; i < count + startIndex; i++) {
-    const x = bigRadius * i * 2 + bigRadius;
+    const x = bigRadius * i * 2 + bigRadius + gap * i;
     const y = bigRadius;
     const t = time * i;
     const smallX = Math.sin(t) * bigRadius + x;
@@ -26,7 +27,7 @@ function draw() {
   // Draw the rows
   for (let i = startIndex; i < count + startIndex; i++) {
     const x = bigRadius;
-    const y = bigRadius * i * 2 + bigRadius;
+    const y = bigRadius * i * 2 + bigRadius + gap * i;
     const t = time * i;
     const smallX = Math.sin(t) * bigRadius + x;
     const smallY = -Math.cos(t) * bigRadius + y;
